@@ -180,5 +180,11 @@ POOLCONF],
  */
 "prefer_ipv4" : true,
 
+/*
+ * be_nice - Auto pause mining if user keyboard / mouse interaction is detected (for mining on idle times on computer desktops / laptops)
+ *
+ */
+ "be_nice" : false,
+
 )==="
 		
