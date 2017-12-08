@@ -17,3 +17,12 @@ config-debug.txt
 # KDevelop files
 .kdev4/
 xmr-stak.kdev4
+*.ipch
+.vs/xmrstak/v15/.suo
+.vs/xmrstak/v15/Browse.VC.db
+.vs/xmrstak/v15/Browse.VC.opendb
+.vs/slnx.sqlite
+.vs/ProjectSettings.json
+xmrstak.sln
+xmrstak.vcxproj
+xmrstak.vcxproj.filters
