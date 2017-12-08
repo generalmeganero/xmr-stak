@@ -186,5 +186,11 @@ POOLCONF],
  */
  "be_nice" : false,
 
+ /*
+ * idle_priority - Set own process priority to idle to keep desktop computers responsive.
+ *
+ */
+ "idle_priority" : true,
+
 )==="
 		

@@ -74,6 +74,7 @@ public:
 
 	slow_mem_cfg GetSlowMemSetting();
 	bool BeNice();
+	bool GetIdlePriority();
 
 private:
 	jconf();

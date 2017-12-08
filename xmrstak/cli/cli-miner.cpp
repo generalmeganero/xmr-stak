@@ -435,6 +435,12 @@ int main(int argc, char *argv[])
 		win_exit();
 		return 1;
 	}
+	if (jconf::inst()->GetIdlePriority()) {
+#ifdef _WIN32
+		printer::inst()->print_msg(L0, "Lowering own process priority to idle\n");
+		SetPriorityClass(GetCurrentProcess(), IDLE_PRIORITY_CLASS);
+#endif
+	}
 
 	if (!BackendConnector::self_test())
 	{
