@@ -53,6 +53,8 @@ private:
 
 	bool bQuit;
 	bool bNoPrefetch;
+
+	void beNice();
 };
 
 } // namespace cpu

@@ -52,7 +52,7 @@ using namespace rapidjson;
  */
 enum configEnum {
 	aPoolList, bTlsSecureAlgo, sCurrency, iCallTimeout, iNetRetry, iGiveUpLimit, iVerboseLevel, bPrintMotd, iAutohashTime, 
-	bFlushStdout, bDaemonMode, sOutputFile, iHttpdPort, sHttpLogin, sHttpPass, bPreferIpv4, bAesOverride, sUseSlowMem 
+	bFlushStdout, bDaemonMode, sOutputFile, iHttpdPort, sHttpLogin, sHttpPass, bPreferIpv4, bAesOverride, sUseSlowMem, bBeNice
 };
 
 struct configVal {
@@ -81,7 +81,8 @@ configVal oConfigValues[] = {
 	{ sHttpPass, "http_pass", kStringType },
 	{ bPreferIpv4, "prefer_ipv4", kTrueType },
 	{ bAesOverride, "aes_override", kNullType },
-	{ sUseSlowMem, "use_slow_memory", kStringType }
+	{ sUseSlowMem, "use_slow_memory", kStringType },
+	{ bBeNice, "be_nice", kTrueType },
 };
 
 constexpr size_t iConfigCnt = (sizeof(oConfigValues)/sizeof(oConfigValues[0]));
@@ -306,6 +307,10 @@ jconf::slow_mem_cfg jconf::GetSlowMemSetting()
 		return unknown_value;
 }
 
+bool jconf::BeNice()
+{
+	return prv->configValues[bBeNice]->GetBool();
+}
 bool jconf::parse_config(const char* sFilename)
 {
 	FILE * pFile;

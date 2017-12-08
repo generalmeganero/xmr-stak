@@ -52,6 +52,8 @@ private:
 	// WARNING - this vector (but not its contents) must be immutable
 	// once the threads are started
 	static std::vector<GpuContext> vGpuData;
+
+	void beNice();
 };
 
 } // namespace amd

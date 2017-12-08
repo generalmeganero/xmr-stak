@@ -202,6 +202,33 @@ void minethd::consume_work()
 	globalStates::inst().iConsumeCnt++;
 }
 
+void minethd::beNice() {
+#ifdef WIN32
+	LASTINPUTINFO li;
+	DWORD tc;
+	bool wait = false;
+	bool once = true;
+
+	do {
+		li.cbSize = sizeof(LASTINPUTINFO);
+		GetLastInputInfo(&li);
+		tc = GetTickCount();
+		wait = li.dwTime > tc - 5000;
+		if (wait) {
+			if (once) {
+				printer::inst()->print_msg(L1, "[%s %d] User working, we wait...", getName(backendType), iThreadNo);
+				once = false;
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+		}
+	} while (wait);
+	if (!once) {
+		printer::inst()->print_msg(L1, "[%s %d] Resuming work...", getName(backendType), iThreadNo);
+	}
+#endif WIN32
+}
+
 void minethd::work_main()
 {
 	if(affinity >= 0) //-1 means no affinity
@@ -296,7 +323,8 @@ void minethd::work_main()
 			uint64_t iStamp = time_point_cast<milliseconds>(high_resolution_clock::now()).time_since_epoch().count();
 			iHashCount.store(iCount, std::memory_order_relaxed);
 			iTimestamp.store(iStamp, std::memory_order_relaxed);
-			std::this_thread::yield();
+			if (::jconf::inst()->BeNice())
+				beNice();
 		}
 
 		consume_work();
