@@ -273,6 +273,18 @@ else()
     list(APPEND BACKEND_TYPES "cpu")
 endif()
 
+###############################################################################
+# Windows app 
+###############################################################################
+
+option(WAPP_ENABLE "Enable or disable Windows app" ON)
+if(WAPP_ENABLE)
+    add_definitions("-DWINDOWS_APP")
+else()
+
+endif()
+
+
 ################################################################################
 # Find PThreads
 ################################################################################
@@ -505,6 +517,8 @@ if(OpenCL_FOUND)
     target_link_libraries(xmrstak_opencl_backend xmr-stak-backend)
 endif()
 
+
+
 # compile final binary
 file(GLOB SRCFILES_CPP "xmrstak/cli/*.cpp")
 set_source_files_properties(${SRCFILES_CPP} PROPERTIES LANGUAGE CXX)
@@ -517,7 +531,9 @@ set(EXECUTABLE_OUTPUT_PATH "bin")
 set(LIBRARY_OUTPUT_PATH "bin")
 
 target_link_libraries(xmr-stak ${LIBS} xmr-stak-c xmr-stak-backend)
-
+if(WAPP_ENABLE)
+	set_target_properties(xmr-stak PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
+endif()
 option(WIN_UAC "Add UAC manifest on Windows" ON)
 
 if(WIN_UAC AND CMAKE_CXX_COMPILER_ID MATCHES "MSVC")

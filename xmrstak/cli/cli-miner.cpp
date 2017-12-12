@@ -262,9 +262,24 @@ void do_guided_config(bool userSetPasswd)
 	configTpl.write(params::inst().configFile);
 	std::cout<<"Configuration stored in file '"<<params::inst().configFile<<"'"<<std::endl;
 }
+#ifdef WINDOWS_APP
+int WinMain(
+	HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR     lpCmdLine,
+	int       nCmdShow
+)
 
+
+#else
 int main(int argc, char *argv[])
+#endif // WINDOWS_APP
 {
+#ifdef WINDOWS_APP
+	int argc = 1;
+	char *argv[1];
+	argv[0] = "xmr-stak";
+#endif
 #ifndef CONF_NO_TLS
 	SSL_library_init();
 	SSL_load_error_strings();
