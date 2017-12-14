@@ -22,6 +22,7 @@
   */
 
 #include "xmrstak/misc/console.hpp"
+#include "xmrstak/net/json_console.hpp"
 
 #include <time.h>
 #include <stdio.h>
@@ -187,7 +188,7 @@ void printer::print_msg(verbosity verbose, const char* fmt, ...)
 
 	if(bpos+2 >= sizeof(buf))
 		return;
-
+	std::string message = buf;
 	buf[bpos] = '\n';
 	buf[bpos+1] = '\0';
 
@@ -204,6 +205,8 @@ void printer::print_msg(verbosity verbose, const char* fmt, ...)
 		fputs(buf, logfile);
 		fflush(logfile);
 	}
+	std::string json = "{ \"ts\":\"" + std::to_string(now) + "\", \"msg\":\"" + message + "\"}\n";
+	json_console::inst()->broadcast_message(json.c_str());
 }
 
 void printer::print_str(const char* str)

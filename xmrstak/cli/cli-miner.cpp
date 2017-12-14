@@ -32,6 +32,7 @@
 #include "xmrstak/misc/configEditor.hpp"
 #include "xmrstak/version.hpp"
 #include "xmrstak/misc/utility.hpp"
+#include "xmrstak/net/json_console.hpp"
 
 #ifndef CONF_NO_HTTPD
 #	include "xmrstak/http/httpd.hpp"
@@ -280,6 +281,7 @@ int main(int argc, char *argv[])
 	char *argv[1];
 	argv[0] = "xmr-stak";
 #endif
+
 #ifndef CONF_NO_TLS
 	SSL_library_init();
 	SSL_load_error_strings();
@@ -288,6 +290,9 @@ int main(int argc, char *argv[])
 	SSL_load_error_strings();
 	OpenSSL_add_all_digests();
 #endif
+
+	
+	json_console::inst()->init();
 
 	srand(time(0));
 

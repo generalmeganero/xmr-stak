@@ -3,6 +3,7 @@
 class printer;
 class jconf;
 class executor;
+class json_console;
 
 namespace xmrstak
 {
@@ -36,6 +37,7 @@ struct environment
 	jconf* pJconfConfig = nullptr;
 	executor* pExecutor = nullptr;
 	params* pParams = nullptr;
+	json_console *pJsonConsole = nullptr;
 };
 
 } // namepsace xmrstak
