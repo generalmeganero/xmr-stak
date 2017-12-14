@@ -26,3 +26,10 @@ xmr-stak.kdev4
 xmrstak.sln
 xmrstak.vcxproj
 xmrstak.vcxproj.filters
+.vs/VSWorkspaceState.json
+.vs/xmr-stak/v15/.suo
+.vs/xmr-stak/v15/Browse.VC.db
+.vs/xmr-stak/v15/Browse.VC.opendb
+local/*
+build-debug.bat
+build.bat
