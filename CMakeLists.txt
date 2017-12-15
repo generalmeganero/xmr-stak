@@ -277,9 +277,20 @@ endif()
 # Windows app 
 ###############################################################################
 
-option(WAPP_ENABLE "Enable or disable Windows app" ON)
+option(WAPP_ENABLE "Enable or disable Windows app" OFF)
 if(WAPP_ENABLE)
     add_definitions("-DWINDOWS_APP")
+else()
+
+endif()
+
+###############################################################################
+# Windows service 
+###############################################################################
+
+option(WINDOWS_SERVICE "Enable or disable Windows service" OFF)
+if(WINDOWS_SERVICE)
+    add_definitions("-DWINSERVICE")
 else()
 
 endif()

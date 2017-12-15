@@ -45,6 +45,9 @@
 #include <time.h>
 #include <iostream>
 
+#include <chrono>
+#include <thread>
+
 #ifndef CONF_NO_TLS
 #include <openssl/ssl.h>
 #include <openssl/err.h>
@@ -272,11 +275,19 @@ int WinMain(
 )
 
 
+#elif defined WINSERVICE
+int service_main()
 #else
 int main(int argc, char *argv[])
 #endif // WINDOWS_APP
 {
 #ifdef WINDOWS_APP
+	int argc = 1;
+	char *argv[1];
+	argv[0] = "xmr-stak";
+#endif
+
+#ifdef WINSERVICE
 	int argc = 1;
 	char *argv[1];
 	argv[0] = "xmr-stak";
@@ -294,6 +305,7 @@ int main(int argc, char *argv[])
 	
 	json_console::inst()->init();
 
+	std::this_thread::sleep_for(std::chrono::milliseconds(10*1000));
 	srand(time(0));
 
 	using namespace xmrstak;
